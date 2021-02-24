@@ -9,3 +9,4 @@ jobs:
       - newman/newman-run:
           collection: ./json_collection/Training.postman_collection.json
           environment: ./env/LAMP-staging.postman_environment.json
+          timeout: '5000'
