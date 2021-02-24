@@ -1,0 +1,142 @@
+{
+	"info": {
+		"_postman_id": "3f431108-a84d-4f98-9c89-9a35eadc9d3c",
+		"name": "Training",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login: 200 OK status code",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const user_id = Math.random().toString(36).substring(2,7);\r",
+							"console.log(user_id);\r",
+							"const email = \"tenni_\" + user_id + \"@semicolon.africa\";\r",
+							"console.log(email);\r",
+							"pm.environment.set(\"user_id\", email);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjA2ODE4NDk0LCJqdGkiOiJjZGQ2YjA1ZDdlYWY0NmVmYTVlNGVmY2I0MTNlYTg3NiIsInVzZXJfaWQiOiJvdGVldmExQGdtYWlsLmNvbSIsImVtYWlsIjoib3RlZXZhMUBnbWFpbC5jb20iLCJpZCI6MjQsImltYWdlIjoiaHR0cHM6Ly9yZXMuY2xvdWRpbmFyeS5jb20vZGtvemRra2xnL2ltYWdlL3VwbG9hZC92MTU2NTU1Nzc1My9jbG91ZGluYXJ5X3F5aTY0OS5qcGciLCJuYW1lIjoiVGVubmkgT3dvZXllIiwib3JnYW5pc2F0aW9uIjoiVE9WRSBDb21wYW55Iiwicm9sZSI6IkNvbnRhY3QgUGVyc29uIn0.t5VNc2IzUWVALN6YIvyfinvjmRvjw5wlAaA2Dquny90",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"uka29c@gmail.com\",\n    \"password\":\"123pass321\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://stagingauth.herokuapp.com/auth/token/jwt",
+					"protocol": "https",
+					"host": [
+						"stagingauth",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"auth",
+						"token",
+						"jwt"
+					]
+				},
+				"description": "Request to test for 200 (OK) status code by stating correct 'key' and 'value' pair"
+			},
+			"response": []
+		},
+		{
+			"name": "Login: 400 Bad Request status code test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Test to show that Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"username\":\"uka29c@gmail.com\",\r\n\"password\":\"123pass321\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://stagingauth.herokuapp.com/auth/token/jwt",
+					"protocol": "https",
+					"host": [
+						"stagingauth",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"auth",
+						"token",
+						"jwt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login: 401 Unauthorized request test",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"email\": \"uka29c@gmail.com\",\r\n\"password\": \"123pass321123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://stagingauth.herokuapp.com/auth/token/jwt",
+					"protocol": "https",
+					"host": [
+						"stagingauth",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"auth",
+						"token",
+						"jwt"
+					]
+				},
+				"description": "Request to test 400 Unauthorized request staus code "
+			},
+			"response": []
+		}
+	]
+}
